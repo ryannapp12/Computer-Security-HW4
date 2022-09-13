@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+
+
+set -euo pipefail  #proper error-checking support
+
+
+#make clean; 
+#make; 
+
+
+rm -rf $1;
+mkdir -p $1/{bin,mail,tmp}
+chmod -R 770 $1/tmp;
+
+# build program, copy binaries into locations
+cp -v mail-in $1/bin/mail-in 
+cp -v mail-out $1/bin/mail-out
+

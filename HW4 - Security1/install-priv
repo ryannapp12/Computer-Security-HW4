@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail  #proper error-checking support
+
+# creates the users, assigns passwords
+./mailbox_gen.sh
+
+# create the system user folders
+while read -r i; do
+    mkdir -p $1/mail/$i;
+    chown -R $i:$i $1/mail/$i; # requires script be ran as root
+    chmod -R 770 $1/mail/$i;   # same 
+done < valid_usernames; 
+
+# update mail-out owner and perms (taken from Makefile)
+sudo chown root:root $1/bin/mail-out
+sudo chmod 770 $1/bin/mail-out
